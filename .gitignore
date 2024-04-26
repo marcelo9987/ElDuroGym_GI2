@@ -5,6 +5,6 @@
 /.idea/
 /ElDuroGym.iml
 /elDuroGym/dist/
-project.properties
+*/project.properties
 baseDatos.properties
 /elDuroGym/nbproject/
