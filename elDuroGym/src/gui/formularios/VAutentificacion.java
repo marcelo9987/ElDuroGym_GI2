@@ -59,6 +59,7 @@ public final class VAutentificacion extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Iniciar Sesión");
+        setModalityType(java.awt.Dialog.ModalityType.TOOLKIT_MODAL);
 
         labelUsuario.setText("Usuario:");
 
