@@ -5,7 +5,7 @@
 package aplicacion;
 
 
-public class Grupo {
+public final class Grupo {
     private int idGrupo;
     private Actividad idActividad;
     

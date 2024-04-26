@@ -2,7 +2,7 @@
 package aplicacion;
 
 
-public class AutenticacionSingleton {
+public final class AutenticacionSingleton {
     private static AutenticacionSingleton instancia;
     private String nickname;
     private String clave;

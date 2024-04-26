@@ -21,18 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package gui;
+package gui.formularios;
+
+import gui.modelos.ModeloTablaCliente;
 
 /**
  *
  * @author david
  */
-public class vGestionClientes extends javax.swing.JFrame {
+public class VGestionClientes extends javax.swing.JFrame {
 
     /**
      * Creates new form vGestionClientes
      */
-    public vGestionClientes() {
+    public VGestionClientes() {
         initComponents();
     }
 

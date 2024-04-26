@@ -5,7 +5,7 @@
 package aplicacion;
 import java.time.*;
 
-public class Sesion {
+public final class Sesion {
 //    private Aula id_aula;
 //    private Grupo id_grupo;
 //    private int id_aula;

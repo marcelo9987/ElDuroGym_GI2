@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author basesdatos
  */
-public class DAOProfesor extends AbstractDAO {
+public final class DAOProfesor extends AbstractDAO {
     public DAOProfesor (Connection conexion, aplicacion.FachadaAplicacion fa){
         super.setConexion(conexion);
         super.setFachadaAplicacion(fa);

@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author alumnogreibd
  */
-public class GestionUsuarios {
+public final class GestionUsuarios {
      FachadaGui fgui;
     FachadaBaseDatos fbd;
     

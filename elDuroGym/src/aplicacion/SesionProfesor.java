@@ -2,7 +2,7 @@ package aplicacion;
 import java.time.*;
 import java.util.*;
 
-public class SesionProfesor {
+public final class SesionProfesor {
 
     private String nombreActividad;
     private String nombreAula;

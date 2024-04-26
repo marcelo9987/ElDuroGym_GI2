@@ -379,7 +379,7 @@
                 <Component class="javax.swing.JTable" name="tablaSesionesProfesor">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new gui.ModeloTablaSesionesProfesor()" type="code"/>
+                      <Connection code="new gui.modelos.ModeloTablaSesionesProfesor()" type="code"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -764,7 +764,7 @@
             <Component class="javax.swing.JTable" name="tablaSesionesCliente">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new gui.ModeloTablaSesionesClientes()" type="code"/>
+                  <Connection code="new gui.modelos.ModeloTablaSesionesClientes()" type="code"/>
                 </Property>
               </Properties>
             </Component>

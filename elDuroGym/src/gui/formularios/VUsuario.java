@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package gui;
+package gui.formularios;
 
 import aplicacion.AutenticacionSingleton;
-import aplicacion.Sesion;
 import aplicacion.SesionCliente;
 import aplicacion.SesionProfesor;
 import aplicacion.TipoUsuario;
+import gui.modelos.ModeloTablaSesionesClientes;
+import gui.modelos.ModeloTablaSesionesProfesor;
 import gui.auxiliares.posicionamientoVentanas;
 import static gui.auxiliares.posicionamientoVentanas.centrarVentana;
 
@@ -223,7 +224,7 @@ public final class VUsuario extends javax.swing.JFrame{
             }
         });
 
-        tablaSesionesProfesor.setModel(new gui.ModeloTablaSesionesProfesor());
+        tablaSesionesProfesor.setModel(new ModeloTablaSesionesProfesor());
         jScrollPane2.setViewportView(tablaSesionesProfesor);
 
         labelNombre.setText("Nombre:");
@@ -465,7 +466,7 @@ public final class VUsuario extends javax.swing.JFrame{
             }
         });
 
-        tablaSesionesCliente.setModel(new gui.ModeloTablaSesionesClientes());
+        tablaSesionesCliente.setModel(new ModeloTablaSesionesClientes());
         jScrollPane1.setViewportView(tablaSesionesCliente);
 
         btnBuscarSesiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N

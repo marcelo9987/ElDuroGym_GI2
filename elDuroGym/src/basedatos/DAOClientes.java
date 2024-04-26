@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DAOClientes extends AbstractDAO
+public final class DAOClientes extends AbstractDAO
 {
     public DAOClientes(Connection conexion, aplicacion.FachadaAplicacion fa)
     {

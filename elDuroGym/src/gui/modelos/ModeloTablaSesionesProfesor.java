@@ -1,7 +1,5 @@
-package gui;
+package gui.modelos;
 
-import aplicacion.Profesor;
-import aplicacion.Sesion;
 import aplicacion.SesionProfesor;
 
 import java.time.LocalDate;

@@ -5,7 +5,7 @@
 package aplicacion;
 import java.time.*;
 
-public class Equipamiento {
+public final class Equipamiento {
     private Aula id_aula;
     private int id_equipamiento;
     private String nombre;

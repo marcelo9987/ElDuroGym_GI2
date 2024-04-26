@@ -6,7 +6,7 @@ import java.sql.*;
  *
  * @author basesdatos
  */
-public class DAOGrupo extends AbstractDAO {
+public final  class DAOGrupo extends AbstractDAO {
 
 
 

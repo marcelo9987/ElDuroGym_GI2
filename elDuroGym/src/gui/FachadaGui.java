@@ -5,6 +5,9 @@
 package gui;
 
 import aplicacion.TipoUsuario;
+import gui.formularios.VAutentificacion;
+import gui.formularios.VAviso;
+import gui.formularios.VUsuario;
 
 /**
  *

@@ -5,7 +5,7 @@
 package aplicacion;
 
 
-public class Actividad {
+public final class Actividad {
     private final int idActividad;
     private final String nombre;
     private final String descripcion;

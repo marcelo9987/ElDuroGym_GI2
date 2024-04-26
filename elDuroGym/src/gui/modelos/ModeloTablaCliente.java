@@ -1,4 +1,4 @@
-package gui;
+package gui.modelos;
 import aplicacion.Cliente;
 import javax.swing.table.*;
 

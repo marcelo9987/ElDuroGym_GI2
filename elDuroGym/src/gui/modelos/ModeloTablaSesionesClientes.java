@@ -1,5 +1,4 @@
-package gui;
-import aplicacion.Sesion;
+package gui.modelos;
 import aplicacion.SesionCliente;
 import javax.swing.table.*;
 

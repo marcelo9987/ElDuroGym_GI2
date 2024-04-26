@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author basesdatos
  */
-public class DAOUsuarios extends AbstractDAO {
+public final class DAOUsuarios extends AbstractDAO {
 
     public DAOUsuarios(Connection conexion, aplicacion.FachadaAplicacion fa) {
         super.setConexion(conexion);

@@ -4,7 +4,7 @@
  */
 package aplicacion;
 
-public class Aula {
+public final class Aula {
     private int idAula;
     private String nombre;
     private Integer aforo;

@@ -2,15 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package gui;
+package gui.formularios;
 
 import aplicacion.AutenticacionSingleton;
 import aplicacion.FachadaAplicacion;
 import aplicacion.TipoUsuario;
 
 import gui.FachadaGui;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 
 import java.util.Arrays;
 
