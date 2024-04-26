@@ -8,3 +8,4 @@
 */project.properties
 baseDatos.properties
 /elDuroGym/nbproject/
+/elDuroGym/dependencias/postgresql-42.7.3.jar
