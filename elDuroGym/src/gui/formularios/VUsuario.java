@@ -139,6 +139,11 @@ public final class VUsuario extends javax.swing.JFrame{
         });
 
         btnPersonal1.setText("Gestion de Actividades");
+        btnPersonal1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPersonal1MouseClicked(evt);
+            }
+        });
         btnPersonal1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPersonal1ActionPerformed(evt);
@@ -721,6 +726,12 @@ public final class VUsuario extends javax.swing.JFrame{
     private void btnPersonal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonal1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPersonal1ActionPerformed
+
+    private void btnPersonal1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPersonal1MouseClicked
+        VGesActividades actividades = new VGesActividades(fa);
+        actividades.setVisible(true);
+        actividades.pack();
+    }//GEN-LAST:event_btnPersonal1MouseClicked
 
 
 

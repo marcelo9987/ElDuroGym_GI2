@@ -8,10 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public final class DAOClientes extends AbstractDAO
-{
-    public DAOClientes(Connection conexion, aplicacion.FachadaAplicacion fa)
-    {
+public final class DAOClientes extends AbstractDAO {
+    public DAOClientes(Connection conexion, aplicacion.FachadaAplicacion fa) {
         super.setConexion(conexion);
         super.setFachadaAplicacion(fa);
     }
@@ -29,8 +27,8 @@ public final class DAOClientes extends AbstractDAO
             String consulta = "SELECT "
                     + "A.Nombre as nombre_aula, "
                     + "AC.Nombre as nombre_actividad, "
-                    + "DATE(S.fecha_hora_inicio) as fecha, "
-                    + "CONCAT(TO_CHAR(EXTRACT(HOUR FROM S.Fecha_hora_inicio), 'FM00'), ':', TO_CHAR(EXTRACT(MINUTE FROM S.fecha_hora_inicio), 'FM00')) as hora "
+                    + "to_char(DATE(S.fecha_hora_inicio),'dd-mm-yyyy') as fecha, "
+                    + "to_char(S.fecha_hora_inicio,'HH:SS') as hora, "
                     + "FROM "
                     + "Sesion as S "
                     + "JOIN "

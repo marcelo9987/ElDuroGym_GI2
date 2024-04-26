@@ -4,11 +4,7 @@
  */
 package basedatos;
 
-import aplicacion.FachadaAplicacion;
-import aplicacion.Sesion;
-import aplicacion.SesionCliente;
-import aplicacion.SesionProfesor;
-import aplicacion.Usuario;
+import aplicacion.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,6 +22,7 @@ public class FachadaBaseDatos {
     private DAOUsuarios daoUsuarios;
     private DAOClientes daoClientes;
     private DAOProfesor daoProfesor;
+    private DAOActividades daoActividades;
 
     public FachadaBaseDatos (FachadaAplicacion fa){
         
@@ -56,6 +53,8 @@ public class FachadaBaseDatos {
         this.daoClientes = new DAOClientes(conexion,fa);
 
         this.daoProfesor = new DAOProfesor(conexion,fa);
+
+        this.daoActividades = new DAOActividades(conexion,fa);
 
         } catch (FileNotFoundException f){
             System.out.println(f.getMessage());
@@ -96,5 +95,23 @@ public class FachadaBaseDatos {
 
     public List<SesionProfesor> obtenerSesionesProfesor (String nickname, String nombreActividad, String nombreAula, String fecha, String hora, String descripcion){
         return daoProfesor.obtenerSesionesProfesor(nickname, nombreActividad, nombreAula, fecha, hora, descripcion);
+    }
+
+    public List<Actividad> consultarActividades() {
+        return daoActividades.consultarActividades();
+    }
+
+    public void eliminarActividad(Actividad actividad)
+    {
+        daoActividades.eliminarActividad(actividad);
+    }
+
+    public boolean ActividadTieneGrupos(Actividad actividad)
+    {
+        return daoActividades.ActividadTieneGrupos(actividad);
+    }
+
+    public void modificarActividad(Actividad actividad, String nombre, String descripcion, String tipo) {
+        daoActividades.modificarActividad(actividad, nombre, descripcion, tipo);
     }
 }

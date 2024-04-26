@@ -4,6 +4,7 @@
  */
 package aplicacion;
 
+import controladores.GestionActividades;
 import controladores.GestionUsuarios;
 
 import java.util.List;
@@ -18,10 +19,12 @@ public class FachadaAplicacion {
     basedatos.FachadaBaseDatos fbd;
     GestionUsuarios cu;
     TipoUsuario nivelAcceso;
+    GestionActividades ca;
     public FachadaAplicacion() {
         fgui = new gui.FachadaGui(this);
         fbd = new basedatos.FachadaBaseDatos(this);
         cu = new GestionUsuarios(fgui,fbd);
+        ca = new GestionActividades(fbd);
     }
 
     /**
@@ -65,5 +68,23 @@ public class FachadaAplicacion {
 
     public List<SesionProfesor> obtenerSesionesProfesor (String nickname, String nombreActividad, String nombreAula, String fecha, String hora, String descripcion){
         return cu.obtenerSesionesProfesor(nickname, nombreActividad, nombreAula, fecha, hora, descripcion);
+    }
+
+    public List<Actividad> consultarActividades()
+    {
+        return ca.consultarActividades();
+    }
+
+    public void eliminarActividad(Actividad actividad)
+    {
+        if(fbd.ActividadTieneGrupos(actividad)){
+            fgui.muestraExcepcion("La actividad tiene grupos asociados, no se puede eliminar");
+            return;
+        }
+        ca.eliminarActividad(actividad);
+    }
+
+    public void modificarActividad(Actividad actividad, String nombre, String descripcion, String tipo) {
+        ca.modificarActividad(actividad, nombre, descripcion, tipo);
     }
 }
