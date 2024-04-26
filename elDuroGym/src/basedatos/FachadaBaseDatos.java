@@ -48,7 +48,7 @@ public class FachadaBaseDatos {
             this.conexion=java.sql.DriverManager.getConnection("jdbc:"+gestor+"://"+
                     configuracion.getProperty("servidor")+":"+
                     configuracion.getProperty("puerto")+"/"+
-                    configuracion.getProperty("basedatos"),
+                    configuracion.getProperty("baseDatos"),
                     usuario);
 
         this.daoUsuarios = new DAOUsuarios(conexion,fa);
