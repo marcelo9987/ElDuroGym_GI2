@@ -1,4 +1,5 @@
 package basedatos;
+
 import aplicacion.*;
 
 import java.sql.*;
@@ -6,11 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author basesdatos
  */
 public final class DAOProfesor extends AbstractDAO {
-    public DAOProfesor (Connection conexion, aplicacion.FachadaAplicacion fa){
+    public DAOProfesor(Connection conexion, aplicacion.FachadaAplicacion fa) {
         super.setConexion(conexion);
         super.setFachadaAplicacion(fa);
     }
@@ -57,7 +57,7 @@ public final class DAOProfesor extends AbstractDAO {
     }
 
     @Deprecated
-    public java.util.List<Sesion> consultarSesiones(Integer id_profesor){
+    public java.util.List<Sesion> consultarSesiones(Integer id_profesor) {
         java.util.List<Sesion> resultado = new java.util.ArrayList<>();
         Connection con = null;
         PreparedStatement stmSesiones = null;
@@ -125,7 +125,7 @@ public final class DAOProfesor extends AbstractDAO {
 //                            , rsSesiones.getInt("id_grupo")
 //                            , rsSesiones.getInt("id_reserva")
                             aula
-                            ,grupo
+                            , grupo
                             , rsSesiones.getInt("id_reserva")
                             , rsSesiones.getTimestamp("fecha_hora_inicio").toLocalDateTime()
                             , rsSesiones.getTimestamp("fecha_hora_fin").toLocalDateTime()
@@ -170,57 +170,63 @@ public final class DAOProfesor extends AbstractDAO {
             con = this.getConexion();
 
             // Preparar la consulta SQL
-            StringBuilder consulta = new StringBuilder();
-            consulta.append("SELECT A.Nombre as nombre_aula, ")
-                    .append("AC.Nombre as nombre_actividad, ")
-                    .append("DATE(S.fecha_hora_inicio) as fecha, ")
-                    .append("CONCAT(TO_CHAR(EXTRACT(HOUR FROM S.Fecha_hora_inicio), 'FM00'), ':', TO_CHAR(EXTRACT(MINUTE FROM S.fecha_hora_inicio), 'FM00')) as hora, ")
-                    .append("AC.descripcion ")
-                    .append("FROM Sesion as S ")
-                    .append("JOIN Grupo as G on S.id_grupo = G.id_grupo ")
-                    .append("JOIN Grupo_tiene_profesor as GP on G.id_grupo = GP.id_grupo ")
-                    .append("JOIN Profesor as PR on GP.id_profesor = PR.id_profesor ")
-                    .append("JOIN Persona as P on PR.id_profesor = P.id_persona ")
-                    .append("JOIN Actividad as AC on G.id_actividad = AC.id_actividad ")
-                    .append("JOIN Aula as A on S.id_aula = A.id_aula  ")
-                    .append("WHERE P.nickname = ? ");
+            String consulta =
+                    "SELECT A.Nombre as nombre_aula, " +
+                            " AC.Nombre as nombre_actividad, " +
+                            "to_char(DATE(S.fecha_hora_inicio),'dd-mm-yyyy') as fecha, " +
+                            "to_char(S.fecha_hora_inicio,'HH:SS') as hora, " +
+//                            "CONCAT(TO_CHAR(EXTRACT(HOUR FROM S.Fecha_hora_inicio), 'FM00'), ':', TO_CHAR(EXTRACT(MINUTE FROM S.fecha_hora_inicio), 'FM00')) as hora, "+
+                            "AC.descripcion " +
+                            "FROM Sesion as S " +
+                            "JOIN Grupo as G on S.id_grupo = G.id_grupo " +
+                            "JOIN Grupo_tiene_profesor as GP on G.id_grupo = GP.id_grupo " +
+                            "JOIN Profesor as PR on GP.id_profesor = PR.id_profesor " +
+                            "JOIN Persona as P on PR.id_profesor = P.id_persona " +
+                            "JOIN Actividad as AC on G.id_actividad = AC.id_actividad " +
+                            "JOIN Aula as A on S.id_aula = A.id_aula  " +
+                            "WHERE P.nickname = ? ";
 
-            if (!nombreActividad.isBlank()) {
-                consulta.append("AND AC.nombre = ? ");
+            if (!nombreActividad.isEmpty()) {
+                consulta += "AND AC.nombre = ? ";
             }
-            if (!nombreAula.isBlank()) {
-                consulta.append("AND A.nombre = ? ");
+            if (!nombreAula.isEmpty()) {
+                consulta += "AND A.nombre = ? ";
             }
-            if (!fecha.isBlank()) {
-                consulta.append("AND DATE(S.fecha_hora_inicio) = ? ");
+            if (!fecha.isEmpty()) {
+                consulta += "AND DATE(S.fecha_hora_inicio) = ? ";
             }
-            if (!hora.isBlank()) {
-                consulta.append("AND TO_CHAR(EXTRACT(HOUR FROM S.Fecha_hora_inicio), 'FM00') || ':' || TO_CHAR(EXTRACT(MINUTE FROM S.Fecha_hora_inicio), 'FM00') = ? ");
+            if (!hora.isEmpty()) {
+                consulta //+= "AND TO_CHAR(EXTRACT(HOUR FROM S.Fecha_hora_inicio), 'FM00') || ':' || TO_CHAR(EXTRACT(MINUTE FROM S.Fecha_hora_inicio), 'FM00') = ? ";
+                += "AND ? between S.fecha_hora_inicio::time and S.fecha_hora_fin::time";
             }
-            if (!descripcion.isBlank()) {
-                consulta.append("AND AC.descripcion = ? ");
+            if (!descripcion.isEmpty()) {
+                consulta += "AND AC.descripcion = ? ";
             }
 
-            stmSesionesProfesor = con.prepareStatement(consulta.toString());
+            stmSesionesProfesor = con.prepareStatement(consulta);
 
             // Asignar parámetros
             int index = 1;
             stmSesionesProfesor.setString(index++, nickname);
-            if (!nombreActividad.isBlank()) {
+            if (!nombreActividad.isEmpty()) {
                 stmSesionesProfesor.setString(index++, nombreActividad);
             }
-            if (!nombreAula.isBlank()) {
+            if (!nombreAula.isEmpty()) {
                 stmSesionesProfesor.setString(index++, nombreAula);
             }
-            if (!fecha.isBlank()) {
+            if (!fecha.isEmpty()) {
                 // Suponiendo que 'fecha' está en formato "yyyy-MM-dd"
                 Date fechaDate = Date.valueOf(fecha);
                 stmSesionesProfesor.setDate(index++, fechaDate);
             }
-            if (!hora.isBlank()) {
-                stmSesionesProfesor.setString(index++, hora);
+            if (!hora.isEmpty()) {
+                //ver si hay dos : en la hora
+                if(hora.split(":").length < 3) {
+                    hora += ":00";
+                }
+                    stmSesionesProfesor.setTime(index++,Time.valueOf(hora));
             }
-            if (!descripcion.isBlank()) {
+            if (!descripcion.isEmpty()) {
                 stmSesionesProfesor.setString(index++, descripcion);
             }
 

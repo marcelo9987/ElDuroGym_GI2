@@ -54,6 +54,7 @@ public final class VUsuario extends javax.swing.JFrame{
         btnPersonal = new javax.swing.JButton();
         btnAulas = new javax.swing.JButton();
         btnGrupos = new javax.swing.JButton();
+        btnPersonal1 = new javax.swing.JButton();
         VProfesor = new javax.swing.JFrame();
         jPanel3 = new javax.swing.JPanel();
         comboSeleccionTipoUsuarioDesdeProfesor = new javax.swing.JComboBox<>();
@@ -74,7 +75,6 @@ public final class VUsuario extends javax.swing.JFrame{
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldDescripcionProfesor = new javax.swing.JTextField();
         JPanelCliente = new javax.swing.JPanel();
@@ -138,47 +138,64 @@ public final class VUsuario extends javax.swing.JFrame{
             }
         });
 
+        btnPersonal1.setText("Gestion de Actividades");
+        btnPersonal1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPersonal1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout JPanelAdminLayout = new javax.swing.GroupLayout(JPanelAdmin);
         JPanelAdmin.setLayout(JPanelAdminLayout);
         JPanelAdminLayout.setHorizontalGroup(
             JPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanelAdminLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(comboSeleccionTipoUsuarioDesdeAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(484, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelAdminLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(JPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(JPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JPanelAdminLayout.createSequentialGroup()
-                        .addGroup(JPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(146, 146, 146)
-                        .addGroup(JPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(comboSeleccionTipoUsuarioDesdeAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelAdminLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelAdminLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(JPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(btnAulas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addGroup(JPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPersonal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGrupos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(66, 66, 66))
+            .addGroup(JPanelAdminLayout.createSequentialGroup()
+                .addGap(208, 208, 208)
+                .addComponent(btnPersonal1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         JPanelAdminLayout.setVerticalGroup(
             JPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanelAdminLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(comboSeleccionTipoUsuarioDesdeAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
                 .addGroup(JPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(102, 102, 102)
+                    .addComponent(btnPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPersonal1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(JPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(btnGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
                 .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addGap(134, 134, 134))
         );
 
         btnSalir1.getAccessibleContext().setAccessibleDescription("Botón que sale de la apliación");
+        btnPersonal1.getAccessibleContext().setAccessibleDescription("Accede al menu de gestión de actividades");
 
         javax.swing.GroupLayout VAdminLayout = new javax.swing.GroupLayout(VAdmin.getContentPane());
         VAdmin.getContentPane().setLayout(VAdminLayout);
@@ -188,7 +205,7 @@ public final class VUsuario extends javax.swing.JFrame{
         );
         VAdminLayout.setVerticalGroup(
             VAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JPanelAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(JPanelAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         JPanelAdmin.getAccessibleContext().setAccessibleName("JPanel administrador");
@@ -224,7 +241,7 @@ public final class VUsuario extends javax.swing.JFrame{
             }
         });
 
-        tablaSesionesProfesor.setModel(new ModeloTablaSesionesProfesor());
+        tablaSesionesProfesor.setModel(new gui.modelos.ModeloTablaSesionesProfesor());
         jScrollPane2.setViewportView(tablaSesionesProfesor);
 
         labelNombre.setText("Nombre:");
@@ -285,8 +302,6 @@ public final class VUsuario extends javax.swing.JFrame{
 
         jLabel3.setText("jLabel3");
 
-        jLabel4.setText("jLabel4");
-
         jLabel5.setText("Descripcion");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -320,8 +335,7 @@ public final class VUsuario extends javax.swing.JFrame{
                                                 .addComponent(jTextFieldFechaProfesor, javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addComponent(jTextFieldActividadProfesor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                                                 .addComponent(jTextFieldDescripcionProfesor)))
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel4))
+                                        .addComponent(jLabel3))
                                     .addGap(18, 18, 18)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addGroup(jPanel3Layout.createSequentialGroup()
@@ -353,7 +367,7 @@ public final class VUsuario extends javax.swing.JFrame{
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(comboSeleccionTipoUsuarioDesdeProfesor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -377,9 +391,7 @@ public final class VUsuario extends javax.swing.JFrame{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSalir2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -466,7 +478,7 @@ public final class VUsuario extends javax.swing.JFrame{
             }
         });
 
-        tablaSesionesCliente.setModel(new ModeloTablaSesionesClientes());
+        tablaSesionesCliente.setModel(new gui.modelos.ModeloTablaSesionesClientes());
         jScrollPane1.setViewportView(tablaSesionesCliente);
 
         btnBuscarSesiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
@@ -711,6 +723,10 @@ public final class VUsuario extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldFechaProfesorActionPerformed
 
+    private void btnPersonal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonal1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPersonal1ActionPerformed
+
 
 
 
@@ -727,6 +743,7 @@ public final class VUsuario extends javax.swing.JFrame{
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnGrupos;
     private javax.swing.JButton btnPersonal;
+    private javax.swing.JButton btnPersonal1;
     private java.awt.Button btnSalir;
     private java.awt.Button btnSalir1;
     private java.awt.Button btnSalir2;
@@ -738,7 +755,6 @@ public final class VUsuario extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JPanel jPanel3;
@@ -801,11 +817,57 @@ public final class VUsuario extends javax.swing.JFrame{
     
     void actualizarBusquedaSesionesProfesor()
     {
+        String hora = jTextFieldHoraProfesor.getText();
+        if(!hora.isBlank() && !comprobarFormatoHora(hora))
+        {
+            JOptionPane.showMessageDialog(this, "El formato de la hora no es correcto. Por favor, introduzca una hora en formato HH:MM.\nSi es correcto, comprueba las fechas introducidas", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String fechaBruta = jTextFieldFechaProfesor.getText();
+        String fecha = "";
+        if(!fechaBruta.isBlank() && !comprobarFormatoFecha(fechaBruta,true))
+        {
+            JOptionPane.showMessageDialog(this, "El formato de la fecha no es correcto. Por favor, introduzca una fecha en formato YYYY-MM-DD", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        if(!fechaBruta.isBlank())
+        {
+            fecha = procesarFecha(fechaBruta);
+            System.out.println("[DEBUG] Fecha procesada: " + fecha);
+        }
+        
         String nickname = AutenticacionSingleton.getInstance().getNickname();
         ModeloTablaSesionesProfesor m = (ModeloTablaSesionesProfesor) tablaSesionesProfesor.getModel();
-        List <SesionProfesor> sesiones = fa.obtenerSesionesProfesor(nickname, jTextFieldActividadProfesor.getText(), jTextFieldAulaProfesor.getText(), jTextFieldFechaProfesor.getText(), jTextFieldHoraProfesor.getText(), jTextFieldDescripcionProfesor.getText());
+        List <SesionProfesor> sesiones = fa.obtenerSesionesProfesor(nickname, jTextFieldActividadProfesor.getText(), jTextFieldAulaProfesor.getText(), fecha, hora, jTextFieldDescripcionProfesor.getText());
         m.setFilas(sesiones);
+    }
+
+    boolean comprobarFormatoHora(String horaAcomprobar)
+    {
+        return horaAcomprobar.matches("(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])|(([01]?[0-9]|2[0-3]):[0-5][0-9])");
+    }
+
+    boolean comprobarFormatoFecha(String fecha, boolean modo)
+    {
+//        return fecha.matches("([0-9]{4})-([01]?[0-9])-([0-9]{2})");
+        //formato español dd-mm-yyyy (0-31, 0-12, 0-9999)
+        if(modo)
+        {
+            return fecha.matches("([0-9]{2})-([01]?[0-9]|1[0-2])-([0-9]{4})");
+        }
+        else
+        {
+            return fecha.matches("([0-9]{4})-([01]?[0-9]|1[0-2])-([0-9]{2})");
+        }
+//        return fecha.matches("([0-9]{4})-([01]?[0-9]|1[0-2])-([0-9]{2})");
+
+    }
+
+    String procesarFecha(String fecha)
+    {
+        String[] fechaDividida = fecha.split("-");
+        return fechaDividida[2] + "-" + fechaDividida[1] + "-" + fechaDividida[0];
     }
 
 }
