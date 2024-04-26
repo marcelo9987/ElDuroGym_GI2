@@ -1,0 +1,10 @@
+/ElDuroGym/target/
+/elDuroGym/nbproject/private/
+/elDuroGym/build/
+/out/
+/.idea/
+/ElDuroGym.iml
+/elDuroGym/dist/
+*/baseDatos.properties
+/baseDatos.properties
+/elDuroGym/nbproject/
