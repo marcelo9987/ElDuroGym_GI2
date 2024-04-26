@@ -809,9 +809,30 @@ public final class VUsuario extends javax.swing.JFrame{
     void actualizarBusquedaSesiones()
     {
 
+        String hora = txtHora.getText();
+        if(!hora.isBlank() && !comprobarFormatoHora(hora))
+        {
+            JOptionPane.showMessageDialog(this, "El formato de la hora no es correcto. Por favor, introduzca una hora en formato HH:MM.\nSi es correcto, comprueba las fechas introducidas", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String fechaBruta = txtFechaSesion.getText();
+        String fecha = "";
+        if(!fechaBruta.isBlank() && !comprobarFormatoFecha(fechaBruta,true))
+        {
+            JOptionPane.showMessageDialog(this, "El formato de la fecha no es correcto. Por favor, introduzca una fecha en formato DD-MM-YYYY", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if(!fechaBruta.isBlank())
+        {
+            fecha = procesarFecha(fechaBruta);
+            System.out.println("[DEBUG] Fecha procesada: " + fecha);
+        }
+
         String nickname = AutenticacionSingleton.getInstance().getNickname();
         ModeloTablaSesionesClientes m = (ModeloTablaSesionesClientes) tablaSesionesCliente.getModel();
-        List <SesionCliente> sesiones = fa.obtenerSesionesCliente(nickname, txtActividad.getText(), txtNombreAula.getText(), txtFechaSesion.getText(), txtHora.getText());
+        List <SesionCliente> sesiones = fa.obtenerSesionesCliente(nickname, txtActividad.getText(), txtNombreAula.getText(), fecha,hora);
         m.setFilas(sesiones);
     }
     
@@ -827,7 +848,7 @@ public final class VUsuario extends javax.swing.JFrame{
         String fecha = "";
         if(!fechaBruta.isBlank() && !comprobarFormatoFecha(fechaBruta,true))
         {
-            JOptionPane.showMessageDialog(this, "El formato de la fecha no es correcto. Por favor, introduzca una fecha en formato YYYY-MM-DD", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El formato de la fecha no es correcto. Por favor, introduzca una fecha en formato DD-MM-YYYY", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
