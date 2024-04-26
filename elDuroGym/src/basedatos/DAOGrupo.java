@@ -1,5 +1,4 @@
-package baseDatos;
-import aplicacion.*;
+package basedatos;
 import aplicacion.Grupo;
 
 import java.sql.*;

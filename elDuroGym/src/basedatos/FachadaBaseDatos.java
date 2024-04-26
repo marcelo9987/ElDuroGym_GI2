@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package baseDatos;
+package basedatos;
 
-import aplicacion.*;
 import aplicacion.FachadaAplicacion;
 import aplicacion.Sesion;
 import aplicacion.SesionCliente;
@@ -49,7 +48,7 @@ public class FachadaBaseDatos {
             this.conexion=java.sql.DriverManager.getConnection("jdbc:"+gestor+"://"+
                     configuracion.getProperty("servidor")+":"+
                     configuracion.getProperty("puerto")+"/"+
-                    configuracion.getProperty("baseDatos"),
+                    configuracion.getProperty("basedatos"),
                     usuario);
 
         this.daoUsuarios = new DAOUsuarios(conexion,fa);

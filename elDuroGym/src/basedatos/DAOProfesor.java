@@ -1,7 +1,5 @@
-package baseDatos;
+package basedatos;
 import aplicacion.*;
-import aplicacion.TipoUsuario;
-import misc.Criptografia;
 
 import java.sql.*;
 import java.util.ArrayList;

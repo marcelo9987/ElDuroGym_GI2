@@ -1,7 +1,6 @@
-package baseDatos;
+package basedatos;
 
 import aplicacion.SesionCliente;
-import baseDatos.AbstractDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
