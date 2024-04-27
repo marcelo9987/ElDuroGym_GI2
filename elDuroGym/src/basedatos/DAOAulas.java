@@ -41,59 +41,68 @@ public class DAOAulas extends AbstractDAO{
         super.setConexion(conexion);
         super.setFachadaAplicacion(fa);
     }
-    // Método para obtener aulas por su nombre
-    public List<Aula> obtenerAulasPorNombre(String nombre) {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        List<Aula> aulas = new ArrayList<>();
+    // Método para obtener aulas por su nombre o aforo
+    public List<Aula> obtenerAulas(String nombre, int aforo) {
+    Connection con = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    List<Aula> aulas = new ArrayList<>();
 
+    try {
+        con = this.getConexion();
+
+        // Consulta SQL para obtener aulas por su nombre y/o aforo
+        String consulta = "SELECT id_aula, nombre, aforo FROM Aula WHERE 1=1"; // Iniciamos la consulta con una condición verdadera
+
+        // Si nombre no es nulo ni vacío, agregamos la condición para filtrar por nombre
+        if (nombre != null && !nombre.isEmpty()) {
+            consulta += " AND nombre LIKE ?";
+        }
+
+        // Si el aforo es mayor que 0, agregamos la condición para filtrar por aforo
+        if (aforo > 0) {
+            consulta += " AND aforo >= ?";
+        }
+
+        pstmt = con.prepareStatement(consulta);
+
+        // Configuramos los parámetros en el PreparedStatement según corresponda
+        int index = 1;
+        if (nombre != null && !nombre.isEmpty()) {
+            pstmt.setString(index++, "%" + nombre + "%");
+        }
+        if (aforo > 0) {
+            pstmt.setInt(index, aforo);
+        }
+
+        rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            Aula aula = new Aula(
+                    rs.getInt("id_aula"),
+                    rs.getString("nombre"),
+                    rs.getInt("aforo")
+            );
+            aulas.add(aula);
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        // Manejo de excepciones
+    } finally {
+        // Cerrar recursos
         try {
-            con = this.getConexion();
-
-            // Consulta SQL para obtener aulas por su nombre
-            String consulta = "SELECT id_aula, nombre, aforo FROM Aula";
-
-            // Si nombre no es nulo ni vacío, agregamos la condición WHERE para filtrar por nombre
-            if (nombre != null && !nombre.isEmpty()) {
-                consulta += " WHERE nombre LIKE ?";
+            if (rs != null) {
+                rs.close();
             }
-
-            pstmt = con.prepareStatement(consulta);
-
-            // Si nombre no es nulo ni vacío, configuramos el parámetro en el PreparedStatement
-            if (nombre != null && !nombre.isEmpty()) {
-                pstmt.setString(1, "%" + nombre + "%");
-            }
-
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                Aula aula = new Aula(
-                        rs.getInt("id_aula"),
-                        rs.getString("nombre"),
-                        rs.getInt("aforo")
-                );
-                aulas.add(aula);
+            if (pstmt != null) {
+                pstmt.close();
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            // Manejo de excepciones
-        } finally {
-            // Cerrar recursos
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Imposible cerrar cursores");
-            }
+            System.out.println("Imposible cerrar cursores");
         }
-        return aulas;
     }
+    return aulas;
+}
 }
     
 

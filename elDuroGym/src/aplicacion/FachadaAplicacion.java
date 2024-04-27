@@ -91,7 +91,17 @@ public class FachadaAplicacion {
         ca.modificarActividad(actividad, nombre, descripcion, tipo);
     }
     
-    public List<Aula> obtenerAulasPorNombre(String nombre){
-        return ga.obtenerAulasPorNombre(nombre);
+    public List<Aula> obtenerAulas(String nombre, int aforo){
+        return ga.obtenerAulas(nombre, aforo);
+    }
+
+    public boolean existeActividad(String nombre)
+    {
+        return ca.existeActividad(nombre);
+    }
+
+    public void crearActividad(String nombre, String descripcion, String tipo)
+    {
+        ca.crearActividad(nombre, descripcion, tipo);
     }
 }

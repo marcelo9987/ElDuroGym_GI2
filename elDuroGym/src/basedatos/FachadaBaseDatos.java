@@ -100,8 +100,8 @@ public class FachadaBaseDatos {
         return daoProfesor.obtenerSesionesProfesor(nickname, nombreActividad, nombreAula, fecha, hora, descripcion);
     }
     
-    public List<Aula> obtenerAulasPorNombre(String nombre){
-        return daoAulas.obtenerAulasPorNombre(nombre);
+    public List<Aula> obtenerAulas(String nombre, int aforo){
+        return daoAulas.obtenerAulas(nombre, aforo);
     }
 
     public List<Actividad> consultarActividades() {

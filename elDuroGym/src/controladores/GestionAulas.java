@@ -37,8 +37,8 @@ public class GestionAulas {
     }
 
     
-    public List<Aula> obtenerAulasPorNombre(String nombre){
-        return fbd.obtenerAulasPorNombre(nombre);
+    public List<Aula> obtenerAulas(String nombre, int aforo){
+        return fbd.obtenerAulas(nombre, aforo);
     }
 }
 
