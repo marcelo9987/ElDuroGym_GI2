@@ -87,7 +87,7 @@ public class ModeloEquipamiento extends AbstractTableModel {
 
         switch (col) {
             case 0:
-                resultado = equipamientos.get(row).getNombre();
+                resultado = equipamientos.get(row).id_aula().getNombre();
                 break;
             case 1:
                 resultado = equipamientos.get(row).getDescripcion();

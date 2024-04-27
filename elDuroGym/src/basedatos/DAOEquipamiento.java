@@ -55,7 +55,10 @@ public class DAOEquipamiento extends AbstractDAO {
             con = this.getConexion();
 
             // Consulta SQL para obtener equipamientos por aula y descripción
-            String consulta = "SELECT e.*, a.* FROM Equipamiento e ";
+            String consulta = "SELECT DISTINCT e.id_equipamiento AS equipamiento_id, e.nombre AS equipamiento_nombre, " +
+                    "e.fecha_mantenimiento, e.descripcion AS equipamiento_descripcion, " +
+                    "a.id_aula AS aula_id, a.nombre AS aula_nombre, a.aforo " +
+                    "FROM Equipamiento e ";
 
             // Si se proporciona un nombre de aula, se une con la tabla Aula
             if (nombreAula != null && !nombreAula.isEmpty()) {
@@ -85,14 +88,14 @@ public class DAOEquipamiento extends AbstractDAO {
 
             while (rs.next()) {
                 // Obtener los datos del equipamiento y del aula
-                int idEquipamiento = rs.getInt("id_equipamiento");
-                String nombreEquipamiento = rs.getString("e.nombre");
+                int idEquipamiento = rs.getInt("equipamiento_id");
+                String nombreEquipamiento = rs.getString("equipamiento_nombre");
                 LocalDate fechaMantenimiento = rs.getDate("fecha_mantenimiento").toLocalDate();
-                String descripcion = rs.getString("descripcion");
+                String descripcion = rs.getString("equipamiento_descripcion");
 
                 // Crear el objeto Aula
-                int idAula = rs.getInt("id_aula");
-                String nombreAulaResultado = rs.getString("a.nombre");
+                int idAula = rs.getInt("aula_id");
+                String nombreAulaResultado = rs.getString("aula_nombre");
                 int aforo = rs.getInt("aforo");
                 Aula aula = new Aula(idAula, nombreAulaResultado, aforo);
 
