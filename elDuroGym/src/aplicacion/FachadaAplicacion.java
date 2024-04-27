@@ -87,4 +87,14 @@ public class FachadaAplicacion {
     public void modificarActividad(Actividad actividad, String nombre, String descripcion, String tipo) {
         ca.modificarActividad(actividad, nombre, descripcion, tipo);
     }
+
+    public boolean existeActividad(String nombre)
+    {
+        return ca.existeActividad(nombre);
+    }
+
+    public void crearActividad(String nombre, String descripcion, String tipo)
+    {
+        ca.crearActividad(nombre, descripcion, tipo);
+    }
 }
