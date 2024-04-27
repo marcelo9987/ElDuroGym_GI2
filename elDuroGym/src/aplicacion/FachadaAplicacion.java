@@ -5,6 +5,7 @@
 package aplicacion;
 
 import controladores.GestionActividades;
+import controladores.GestionAulas;
 import controladores.GestionUsuarios;
 
 import java.util.List;
@@ -20,11 +21,13 @@ public class FachadaAplicacion {
     GestionUsuarios cu;
     TipoUsuario nivelAcceso;
     GestionActividades ca;
+    GestionAulas ga;
     public FachadaAplicacion() {
         fgui = new gui.FachadaGui(this);
         fbd = new basedatos.FachadaBaseDatos(this);
         cu = new GestionUsuarios(fgui,fbd);
         ca = new GestionActividades(fbd);
+        ga = new GestionAulas(fbd);
     }
 
     /**
@@ -86,5 +89,9 @@ public class FachadaAplicacion {
 
     public void modificarActividad(Actividad actividad, String nombre, String descripcion, String tipo) {
         ca.modificarActividad(actividad, nombre, descripcion, tipo);
+    }
+    
+    public List<Aula> obtenerAulasPorNombre(String nombre){
+        return ga.obtenerAulasPorNombre(nombre);
     }
 }

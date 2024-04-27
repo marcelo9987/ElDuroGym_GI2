@@ -130,6 +130,11 @@ public final class VUsuario extends javax.swing.JFrame{
         btnPersonal.setText("Gestion de Personal");
 
         btnAulas.setText("Gestion de aulas");
+        btnAulas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAulasActionPerformed(evt);
+            }
+        });
 
         btnGrupos.setText("Gestion de grupos");
         btnGrupos.addActionListener(new java.awt.event.ActionListener() {
@@ -732,6 +737,13 @@ public final class VUsuario extends javax.swing.JFrame{
         actividades.setVisible(true);
         actividades.pack();
     }//GEN-LAST:event_btnPersonal1MouseClicked
+
+    private void btnAulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAulasActionPerformed
+        // TODO add your handling code here:
+        VGestionAulas aulas = new VGestionAulas(fa);
+        aulas.setVisible(true);
+        aulas.pack();
+    }//GEN-LAST:event_btnAulasActionPerformed
 
 
 
