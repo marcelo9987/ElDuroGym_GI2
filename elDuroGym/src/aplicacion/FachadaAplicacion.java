@@ -95,6 +95,10 @@ public class FachadaAplicacion {
         return ga.obtenerAulas(nombre, aforo);
     }
 
+    public void editarAforo(String nombreAula, int nuevoAforo){
+        ga.editarAforo(nombreAula, nuevoAforo);
+    }
+
     public boolean existeActividad(String nombre)
     {
         return ca.existeActividad(nombre);

@@ -130,4 +130,8 @@ public class FachadaBaseDatos {
     {
         daoActividades.crearActividad(nombre, descripcion, tipo);
     }
+
+    public void editarAforo(String nombreAula, int nuevoAforo){
+        daoAulas.editarAforo(nombreAula, nuevoAforo);
+    }
 }

@@ -103,6 +103,44 @@ public class DAOAulas extends AbstractDAO{
     }
     return aulas;
 }
+
+    public void editarAforo(String nombreAula, int nuevoAforo) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            con = this.getConexion();
+
+            // Consulta SQL para actualizar el aforo del aula
+            String consulta = "UPDATE Aula SET aforo = ? WHERE nombre = ?";
+            pstmt = con.prepareStatement(consulta);
+
+            // Configurar los parámetros en el PreparedStatement
+            pstmt.setInt(1, nuevoAforo);
+            pstmt.setString(2, nombreAula);
+
+            // Ejecutar la actualización
+            int filasActualizadas = pstmt.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                System.out.println("Aforo actualizado exitosamente para el aula '" + nombreAula + "'.");
+            } else {
+                System.out.println("No se encontró el aula '" + nombreAula + "'.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar el aforo del aula '" + nombreAula + "': " + e.getMessage());
+            // Manejo de excepciones
+        } finally {
+            // Cerrar recursos
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar PreparedStatement");
+            }
+        }
+    }
 }
     
 

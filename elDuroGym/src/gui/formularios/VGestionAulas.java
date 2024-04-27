@@ -79,11 +79,21 @@ public class VGestionAulas extends javax.swing.JFrame {
         jLabel1.setText("Aula:");
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEquipamiento.setText("Equipamiento");
 
         btnSalir.setBackground(new java.awt.Color(204, 0, 0));
         btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Disponibilidad");
 
@@ -150,10 +160,11 @@ public class VGestionAulas extends javax.swing.JFrame {
                                 .addGap(25, 25, 25)
                                 .addComponent(btnEquipamiento)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtAula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(btnBuscar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtAula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)))
                         .addGap(0, 4, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -178,6 +189,16 @@ public class VGestionAulas extends javax.swing.JFrame {
         // TODO add your handling code here:
         actualizarAulas();
     }//GEN-LAST:event_btnBuscarMouseClicked
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        editarAforo();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSalirActionPerformed
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -204,6 +225,18 @@ public class VGestionAulas extends javax.swing.JFrame {
         ModeloTablaAulas m = (ModeloTablaAulas) TablaAulas.getModel();
         List <Aula> aulas = fa.obtenerAulas(nombre,aforo);
         m.setFilas(aulas);
+    }
+
+    private void editarAforo(){
+        String nombre = txtAula.getText();
+        int aforo = 0;
+        if(!txtAforo.getText().isEmpty() || !txtAforo.getText().isBlank()){
+            aforo = Integer.parseInt(txtAforo.getText());
+            fa.editarAforo(nombre, aforo);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un valor");
+        }
     }
    
 }

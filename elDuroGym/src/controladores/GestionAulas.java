@@ -40,5 +40,9 @@ public class GestionAulas {
     public List<Aula> obtenerAulas(String nombre, int aforo){
         return fbd.obtenerAulas(nombre, aforo);
     }
+
+    public void editarAforo(String nombreAula, int nuevoAforo){
+        fbd.editarAforo(nombreAula, nuevoAforo);
+    }
 }
 
