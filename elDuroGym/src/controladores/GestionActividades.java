@@ -25,4 +25,12 @@ public class GestionActividades {
     public void modificarActividad(Actividad actividad, String nombre, String descripcion, String tipo) {
         fbd.modificarActividad(actividad, nombre, descripcion, tipo);
     }
+
+    public boolean existeActividad(String nombre) {
+        return fbd.existeActividad(nombre);
+    }
+
+    public void crearActividad(String nombre, String descripcion, String tipo) {
+        fbd.crearActividad(nombre, descripcion, tipo);
+    }
 }

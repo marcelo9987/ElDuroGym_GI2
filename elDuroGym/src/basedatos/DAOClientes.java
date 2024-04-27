@@ -25,10 +25,10 @@ public final class DAOClientes extends AbstractDAO {
             int index = 1; // Índice inicial para los parámetros
 
             String consulta = "SELECT "
-                    + "A.Nombre as nombre_aula, "
-                    + "AC.Nombre as nombre_actividad, "
-                    + "to_char(DATE(S.fecha_hora_inicio),'dd-mm-yyyy') as fecha, "
-                    + "to_char(S.fecha_hora_inicio,'HH:SS') as hora, "
+                    + " A.Nombre as nombre_aula"
+                    + ", AC.Nombre as nombre_actividad"
+                    + ", to_char(DATE(S.fecha_hora_inicio),'dd-mm-yyyy') as fecha"
+                    + ", to_char(S.fecha_hora_inicio,'HH:SS') as hora "
                     + "FROM "
                     + "Sesion as S "
                     + "JOIN "

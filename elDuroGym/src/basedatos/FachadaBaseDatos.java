@@ -115,10 +115,19 @@ public class FachadaBaseDatos {
 
     public boolean ActividadTieneGrupos(Actividad actividad)
     {
-        return daoActividades.ActividadTieneGrupos(actividad);
+        return daoActividades.actividadTieneGrupos(actividad);
     }
 
     public void modificarActividad(Actividad actividad, String nombre, String descripcion, String tipo) {
         daoActividades.modificarActividad(actividad, nombre, descripcion, tipo);
+    }
+
+    public boolean existeActividad(String nombre) {
+        return daoActividades.existeActividad(nombre);
+    }
+
+    public void crearActividad(String nombre, String descripcion, String tipo)
+    {
+        daoActividades.crearActividad(nombre, descripcion, tipo);
     }
 }

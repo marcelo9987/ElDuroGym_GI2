@@ -51,7 +51,7 @@ public class DAOActividades extends AbstractDAO {
 
     }
 
-    public boolean ActividadTieneGrupos(Actividad actividad) {
+    public boolean actividadTieneGrupos(Actividad actividad) {
         Connection conexion = this.getConexion();
         PreparedStatement stmActividades = null;
         ResultSet datosEntrada;
@@ -128,6 +128,71 @@ public class DAOActividades extends AbstractDAO {
             stmActividades.setString(2, descripcion);
             stmActividades.setString(3, tipo);
             stmActividades.setInt(4, actividad.getIdActividad());
+            stmActividades.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (stmActividades != null) {
+                    stmActividades.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                this.getFachadaAplicacion().muestraExcepcion(IMPOSIBLE_CERRAR_CONEXION);
+            }
+        }
+    }
+
+    public boolean existeActividad(String nombre) {
+        Connection conexion = this.getConexion();
+        PreparedStatement stmActividades = null;
+        ResultSet datosEntrada;
+        boolean resultado = false;
+
+        String consulta =
+                " SELECT count(1)" +
+                        " FROM actividad " +
+                        " WHERE nombre = ? ";
+        try {
+            stmActividades = conexion.prepareStatement(consulta);
+            stmActividades.setString(1, nombre);
+            datosEntrada = stmActividades.executeQuery();
+            if (datosEntrada.next()) {
+                resultado = datosEntrada.getInt(1) > 0;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (stmActividades != null) {
+                    stmActividades.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                this.getFachadaAplicacion().muestraExcepcion(IMPOSIBLE_CERRAR_CONEXION);
+            }
+        }
+
+        return resultado;
+    }
+
+    public void crearActividad(String nombre, String descripcion, String tipo) {
+        Connection conexion = this.getConexion();
+        PreparedStatement stmActividades = null;
+
+        String consulta =
+                " INSERT " +
+                        "INTO actividad (nombre, descripcion, tipo)"
+                        + " VALUES (?, ?, ?) ";
+        try {
+            stmActividades = conexion.prepareStatement(consulta);
+            stmActividades.setString(1, nombre);
+            stmActividades.setString(2, descripcion);
+            stmActividades.setString(3, tipo);
             stmActividades.executeUpdate();
 
         } catch (Exception e) {
