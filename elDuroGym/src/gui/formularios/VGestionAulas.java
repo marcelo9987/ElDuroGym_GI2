@@ -86,6 +86,11 @@ public class VGestionAulas extends javax.swing.JFrame {
         });
 
         btnEquipamiento.setText("Equipamiento");
+        btnEquipamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEquipamientoActionPerformed(evt);
+            }
+        });
 
         btnSalir.setBackground(new java.awt.Color(204, 0, 0));
         btnSalir.setText("SALIR");
@@ -199,6 +204,13 @@ public class VGestionAulas extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnEquipamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEquipamientoActionPerformed
+        // TODO add your handling code here:
+        VEquipamiento equipamientos = new VEquipamiento(fa);
+        equipamientos.setVisible(true);
+        equipamientos.pack();
+    }//GEN-LAST:event_btnEquipamientoActionPerformed
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

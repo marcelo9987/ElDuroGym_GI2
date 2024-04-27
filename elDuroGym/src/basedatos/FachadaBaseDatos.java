@@ -24,6 +24,7 @@ public class FachadaBaseDatos {
     private DAOProfesor daoProfesor;
     private DAOActividades daoActividades;
     private DAOAulas daoAulas;
+    private DAOEquipamiento daoEquipamiento;
 
     public FachadaBaseDatos (FachadaAplicacion fa){
         
@@ -58,6 +59,8 @@ public class FachadaBaseDatos {
         this.daoActividades = new DAOActividades(conexion,fa);
 
         this.daoAulas = new DAOAulas(conexion,fa);
+
+        this.daoEquipamiento = new DAOEquipamiento(conexion,fa);
 
         } catch (FileNotFoundException f){
             System.out.println(f.getMessage());
@@ -134,4 +137,10 @@ public class FachadaBaseDatos {
     public void editarAforo(String nombreAula, int nuevoAforo){
         daoAulas.editarAforo(nombreAula, nuevoAforo);
     }
+
+    public List<Equipamiento> obtenerEquipamientosPorAula(String nombreAula, String descripcionEquipamiento){
+        return daoEquipamiento.obtenerEquipamientosPorAula(nombreAula, descripcionEquipamiento);
+    }
+
+
 }

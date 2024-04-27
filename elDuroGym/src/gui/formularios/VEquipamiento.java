@@ -23,11 +23,20 @@
  */
 package gui.formularios;
 
+import aplicacion.Aula;
+import aplicacion.Equipamiento;
+import gui.modelos.ModeloEquipamiento;
+import gui.modelos.ModeloTablaAulas;
+
+import java.util.List;
+
 /**
  *
  * @author alumnogreibd
  */
 public class VEquipamiento extends javax.swing.JFrame {
+
+    aplicacion.FachadaAplicacion fa;
 
     /**
      * Creates new form VEquipamiento
@@ -36,6 +45,10 @@ public class VEquipamiento extends javax.swing.JFrame {
         initComponents();
     }
 
+    public VEquipamiento(aplicacion.FachadaAplicacion fa) {
+        this.fa=fa;
+        initComponents();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -190,6 +203,12 @@ public class VEquipamiento extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void consultarEquipamiento() {
-        
+        String nombre = txtAula.getText();
+        String descripcion = txtDescripcion.getText();
+
+        ModeloEquipamiento m = (ModeloEquipamiento) tablaEquipamiento.getModel();
+        List<Equipamiento> equipamientos = fa.obtenerEquipamientosPorAula(nombre, descripcion);
+        m.setFilas(equipamientos);
+
     }
 }
