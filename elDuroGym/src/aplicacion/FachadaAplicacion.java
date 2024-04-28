@@ -116,27 +116,38 @@ public class FachadaAplicacion {
         return ge.obtenerEquipamientosPorAula(nombreAula, descripcionEquipamiento);
     }
 
-    public Aula obtenerAulaPorNombre(String nombre) {
-        return gs.obtenerAulaPorNombre(nombre);
-    }
-
-    public Actividad obtenerActividadPorId(int idActividad) {
-        return gs.obtenerActividadPorId(idActividad);
-    }
 
     public Grupo obtenerGrupoPorId(int idGrupo) {
         return gs.obtenerGrupoPorId(idGrupo);
     }
 
-    public int obtenerSiguienteIdReserva() {
-        return gs.obtenerSiguienteIdReserva();
-    }
 
     public boolean haySesionesEnAula(int idAula, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
         return gs.haySesionesEnAula(idAula, fechaHoraInicio, fechaHoraFin);
     }
 
-    public boolean idGrupoRelacionadoConProfesor(int idGrupo, int idProfesor) {
-        return gs.idGrupoRelacionadoConProfesor(idGrupo, idProfesor);
+    
+    public List<SesionProfesor> obtenerSesionesProfesorVentana(String nickname, String nombreActividad, String nombreAula, String descripcion) {
+        return gs.obtenerSesionesProfesorVentana(nickname, nombreActividad, nombreAula, descripcion);
+    }
+
+    public boolean crearSesionParaProfesor(int idAula, int idGrupo, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, String descripcion) {
+        return gs.crearSesionParaProfesor(idAula, idGrupo, fechaHoraInicio, fechaHoraFin, descripcion);
+    }
+
+    public Aula obtenerAulaPorNombre(String nombre){
+        return gs.obtenerAulaPorNombre(nombre);
+    }
+
+    public boolean insertarGrupoTieneProfesor(int idGrupo, int idProfesor) {
+        return gs.insertarGrupoTieneProfesor(idGrupo, idProfesor);
+    }
+
+    public int obtenerIdProfesorPorNombre(String nombreProfesor) {
+        return fbd.obtenerIdProfesorPorNombre(nombreProfesor);
+    }
+
+    public boolean borrarSesionesDeProfesor(int idProfesor, int idGrupo) {
+        return gs.borrarSesionesDeProfesor(idProfesor, idGrupo);
     }
 }

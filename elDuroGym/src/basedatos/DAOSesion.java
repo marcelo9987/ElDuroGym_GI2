@@ -41,50 +41,50 @@ public class DAOSesion extends AbstractDAO {
         super.setConexion(conexion);
         super.setFachadaAplicacion(fa);
     }
-    
-    //Función para obtener una clase aula por su nombre
+
+
     public Aula obtenerAulaPorNombre(String nombre) {
-    Connection con = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    Aula aula = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Aula aula = null;
 
-    try {
-        con = this.getConexion();
-
-        // Consulta SQL para obtener un aula por su nombre
-        String consulta = "SELECT id_aula, nombre, aforo FROM Aula WHERE nombre = ?";
-        pstmt = con.prepareStatement(consulta);
-        pstmt.setString(1, nombre);
-
-        rs = pstmt.executeQuery();
-
-        if (rs.next()) {
-            // Construir el objeto Aula con los datos obtenidos de la consulta
-            aula = new Aula(
-                rs.getInt("id_aula"),
-                rs.getString("nombre"),
-                rs.getInt("aforo")
-            );
-        }
-    } catch (SQLException e) {
-        System.out.println(e.getMessage());
-        // Manejo de excepciones
-    } finally {
-        // Cerrar recursos
         try {
-            if (rs != null) {
-                rs.close();
-            }
-            if (pstmt != null) {
-                pstmt.close();
+            con = this.getConexion();
+
+            // Consulta SQL para obtener un aula por su nombre
+            String consulta = "SELECT id_aula, aforo FROM Aula WHERE nombre = ?";
+            pstmt = con.prepareStatement(consulta);
+            pstmt.setString(1, nombre);
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                // Construir el objeto Aula con los datos obtenidos de la consulta
+                aula = new Aula(
+                        rs.getInt("id_aula"),
+                        nombre,
+                        rs.getInt("aforo")
+                );
             }
         } catch (SQLException e) {
-            System.out.println("Imposible cerrar cursores");
+            System.out.println("Error al obtener el aula por nombre: " + e.getMessage());
+            // Manejo de excepciones
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores: " + e.getMessage());
+            }
         }
+        return aula;
     }
-    return aula;
-}
 
     public Actividad obtenerActividadPorId(int idActividad) {
         Connection con = null;
@@ -173,44 +173,6 @@ public class DAOSesion extends AbstractDAO {
         return grupo;
     }
 
-    public int obtenerSiguienteIdReserva() {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        int siguienteId = 1; // Valor por defecto si no hay registros en la tabla
-
-        try {
-            con = this.getConexion();
-
-            // Consulta SQL para obtener el máximo id_reserva de la tabla de sesiones
-            String consulta = "SELECT MAX(id_reserva) AS max_id FROM Sesion";
-            pstmt = con.prepareStatement(consulta);
-
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                // Obtener el máximo id_reserva y sumarle 1 para obtener el siguiente id
-                siguienteId = rs.getInt("max_id") + 1;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            // Manejo de excepciones
-        } finally {
-            // Cerrar recursos
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Imposible cerrar cursores");
-            }
-        }
-        return siguienteId;
-    }
-
     public boolean haySesionesEnAula(int idAula, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -252,36 +214,113 @@ public class DAOSesion extends AbstractDAO {
         return haySesiones;
     }
 
-    public boolean idGrupoRelacionadoConProfesor(int idGrupo, int idProfesor) {
+    public List<SesionProfesor> obtenerSesionesProfesorVentana(String nickname, String nombreActividad, String nombreAula, String descripcion) {
+    Connection con = null;
+    PreparedStatement stmSesionesProfesor = null;
+    ResultSet rsSesionesProfesor = null;
+
+    List<SesionProfesor> resultado = new ArrayList<>();
+    try {
+        con = this.getConexion();
+
+        // Preparar la consulta SQL
+        String consulta =
+                "SELECT A.Nombre as nombre_aula, " +
+                        " AC.Nombre as nombre_actividad, " +
+                        "to_char(DATE(S.fecha_hora_inicio),'dd-mm-yyyy') as fecha, " +
+                        "to_char(S.fecha_hora_inicio,'HH:SS') as hora, " +
+                        "AC.descripcion " +
+                        "FROM Sesion as S " +
+                        "JOIN Grupo as G on S.id_grupo = G.id_grupo " +
+                        "JOIN Grupo_tiene_profesor as GP on G.id_grupo = GP.id_grupo " +
+                        "JOIN Profesor as PR on GP.id_profesor = PR.id_profesor " +
+                        "JOIN Persona as P on PR.id_profesor = P.id_persona " +
+                        "JOIN Actividad as AC on G.id_actividad = AC.id_actividad " +
+                        "JOIN Aula as A on S.id_aula = A.id_aula  " +
+                        "WHERE P.nickname = ? ";
+
+        if (!nombreActividad.isEmpty()) {
+            consulta += "AND AC.nombre = ? ";
+        }
+        if (!nombreAula.isEmpty()) {
+            consulta += "AND A.nombre = ? ";
+        }
+        if (!descripcion.isEmpty()) {
+            consulta += "AND S.descripcion = ? ";
+        }
+
+        stmSesionesProfesor = con.prepareStatement(consulta);
+
+        // Asignar parámetros
+        int index = 1;
+        stmSesionesProfesor.setString(index++, nickname);
+        if (!nombreActividad.isEmpty()) {
+            stmSesionesProfesor.setString(index++, nombreActividad);
+        }
+        if (!nombreAula.isEmpty()) {
+            stmSesionesProfesor.setString(index++, nombreAula);
+        }
+        if (!descripcion.isEmpty()) {
+            stmSesionesProfesor.setString(index++, descripcion);
+        }
+
+        rsSesionesProfesor = stmSesionesProfesor.executeQuery();
+
+        while (rsSesionesProfesor.next()) {
+            SesionProfesor sesion = new SesionProfesor(
+                    rsSesionesProfesor.getString("nombre_actividad"),
+                    rsSesionesProfesor.getString("nombre_aula"),
+                    rsSesionesProfesor.getString("fecha"),
+                    rsSesionesProfesor.getString("hora"),
+                    rsSesionesProfesor.getString("descripcion")
+            );
+            resultado.add(sesion);
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+    } finally {
+        try {
+            // Cerrar recursos
+            if (rsSesionesProfesor != null) {
+                rsSesionesProfesor.close();
+            }
+            if (stmSesionesProfesor != null) {
+                stmSesionesProfesor.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Imposible cerrar cursores");
+        }
+    }
+    return resultado;
+}
+
+    public boolean crearSesionParaProfesor(int idAula, int idGrupo, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, String descripcion) {
         Connection con = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;
+        boolean exito = false;
 
         try {
             con = this.getConexion();
 
-            // Consulta SQL para verificar si la relación existe en la tabla grupo_tiene_profesor
-            String consulta = "SELECT COUNT(*) FROM grupo_tiene_profesor WHERE id_grupo = ? AND id_profesor = ?";
+            // Consulta SQL para insertar una nueva sesión
+            String consulta = "INSERT INTO Sesion (id_aula, id_grupo, fecha_hora_inicio, fecha_hora_fin, descripcion) VALUES (?, ?, ?, ?, ?)";
             pstmt = con.prepareStatement(consulta);
-            pstmt.setInt(1, idGrupo);
-            pstmt.setInt(2, idProfesor);
+            pstmt.setInt(1, idAula);
+            pstmt.setInt(2, idGrupo);
+            pstmt.setObject(3, fechaHoraInicio);
+            pstmt.setObject(4, fechaHoraFin);
+            pstmt.setString(5, descripcion);
 
-            rs = pstmt.executeQuery();
-
-            // Si se encuentra al menos una fila, significa que la relación existe
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                return count > 0;
-            }
+            // Ejecutar la consulta y comprobar si se insertó correctamente
+            int filasInsertadas = pstmt.executeUpdate();
+            exito = filasInsertadas > 0;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             // Manejo de excepciones
         } finally {
             // Cerrar recursos
             try {
-                if (rs != null) {
-                    rs.close();
-                }
                 if (pstmt != null) {
                     pstmt.close();
                 }
@@ -289,7 +328,84 @@ public class DAOSesion extends AbstractDAO {
                 System.out.println("Imposible cerrar cursores");
             }
         }
-        return false; // La relación no existe o ha ocurrido un error
+        return exito;
+    }
+
+    public boolean insertarGrupoTieneProfesor(int idGrupo, int idProfesor) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        boolean exito = false;
+
+        try {
+            con = this.getConexion();
+
+            // Consulta SQL para insertar un nuevo registro en grupo_tiene_profesor
+            String consulta = "INSERT INTO Grupo_tiene_profesor (id_grupo, id_profesor) VALUES (?, ?)";
+            pstmt = con.prepareStatement(consulta);
+            pstmt.setInt(1, idGrupo);
+            pstmt.setInt(2, idProfesor);
+
+            // Ejecutar la consulta y comprobar si se insertó correctamente
+            int filasInsertadas = pstmt.executeUpdate();
+            exito = filasInsertadas > 0;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            // Manejo de excepciones
+        } finally {
+            // Cerrar recursos
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return exito;
+    }
+
+    public boolean borrarSesionesDeProfesor(int idProfesor, int idGrupo) {
+        Connection con = null;
+        PreparedStatement pstmtSesion = null;
+        PreparedStatement pstmtGrupoTieneProfesor = null;
+        boolean exito = false;
+
+        try {
+            con = this.getConexion();
+
+            // Consulta SQL para borrar las sesiones del profesor en el grupo especificado
+            String consultaSesion = "DELETE FROM Sesion WHERE id_grupo = ? AND id_aula IN (SELECT id_aula FROM Grupo WHERE id_grupo = ?)";
+            pstmtSesion = con.prepareStatement(consultaSesion);
+            pstmtSesion.setInt(1, idGrupo);
+            pstmtSesion.setInt(2, idGrupo);
+            pstmtSesion.executeUpdate();
+
+            // Consulta SQL para borrar la relación del profesor con el grupo
+            String consultaGrupoTieneProfesor = "DELETE FROM Grupo_tiene_profesor WHERE id_grupo = ? AND id_profesor = ?";
+            pstmtGrupoTieneProfesor = con.prepareStatement(consultaGrupoTieneProfesor);
+            pstmtGrupoTieneProfesor.setInt(1, idGrupo);
+            pstmtGrupoTieneProfesor.setInt(2, idProfesor);
+            pstmtGrupoTieneProfesor.executeUpdate();
+
+            // Si se llega a este punto sin excepciones, se considera exitosa la operación
+            exito = true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            // Manejo de excepciones
+        } finally {
+            // Cerrar recursos
+            try {
+                if (pstmtSesion != null) {
+                    pstmtSesion.close();
+                }
+                if (pstmtGrupoTieneProfesor != null) {
+                    pstmtGrupoTieneProfesor.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return exito;
     }
 
 }

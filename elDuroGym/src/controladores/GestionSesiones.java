@@ -4,6 +4,7 @@ import aplicacion.Actividad;
 import aplicacion.Aula;
 import aplicacion.Equipamiento;
 import aplicacion.Grupo;
+import aplicacion.SesionProfesor;
 import basedatos.FachadaBaseDatos;
 
 import java.time.LocalDateTime;
@@ -16,26 +17,32 @@ public class GestionSesiones {
         this.fbd=fbd;
     }
 
-    public Aula obtenerAulaPorNombre(String nombre) {
-        return fbd.obtenerAulaPorNombre(nombre);
-    }
-
-    public Actividad obtenerActividadPorId(int idActividad) {
-        return fbd.obtenerActividadPorId(idActividad);
-    }
-
     public Grupo obtenerGrupoPorId(int idGrupo) {
         return fbd.obtenerGrupoPorId(idGrupo);
-    }
-
-    public int obtenerSiguienteIdReserva() {
-        return fbd.obtenerSiguienteIdReserva();
     }
 
     public boolean haySesionesEnAula(int idAula, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
         return fbd.haySesionesEnAula(idAula, fechaHoraInicio, fechaHoraFin);
     }
-    public boolean idGrupoRelacionadoConProfesor(int idGrupo, int idProfesor) {
-        return fbd.idGrupoRelacionadoConProfesor(idGrupo, idProfesor);
+
+    
+    public List<SesionProfesor> obtenerSesionesProfesorVentana(String nickname, String nombreActividad, String nombreAula, String descripcion) {
+        return fbd.obtenerSesionesProfesorVentana(nickname, nombreActividad, nombreAula, descripcion);
+    }
+
+    public boolean crearSesionParaProfesor(int idAula, int idGrupo, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, String descripcion) {
+        return fbd.crearSesionParaProfesor(idAula, idGrupo, fechaHoraInicio, fechaHoraFin, descripcion);
+    }
+
+    public Aula obtenerAulaPorNombre(String nombre){
+        return fbd.obtenerAulaPorNombre(nombre);
+    }
+
+    public boolean insertarGrupoTieneProfesor(int idGrupo, int idProfesor) {
+        return fbd.insertarGrupoTieneProfesor(idGrupo, idProfesor);
+    }
+
+    public boolean borrarSesionesDeProfesor(int idProfesor, int idGrupo) {
+        return fbd.borrarSesionesDeProfesor(idProfesor, idGrupo);
     }
 }

@@ -261,4 +261,43 @@ public final class DAOProfesor extends AbstractDAO {
         return resultado;
     }
 
+    public int obtenerIdProfesorPorNombre(String nombreProfesor) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int idProfesor = -1; // Valor predeterminado en caso de que no se encuentre el profesor
+
+        try {
+            con = this.getConexion();
+
+            // Consulta SQL para obtener el id_profesor por su nombre
+            String consulta = "SELECT id_persona FROM persona WHERE nickname = ?";
+            pstmt = con.prepareStatement(consulta);
+            pstmt.setString(1, nombreProfesor);
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                // Obtener el id_profesor de la consulta
+                idProfesor = rs.getInt("id_persona");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            // Manejo de excepciones
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return idProfesor;
+    }
+
 }

@@ -68,8 +68,7 @@ public final class VUsuario extends javax.swing.JFrame{
         btnBuscar = new javax.swing.JLabel();
         btnBorrar = new javax.swing.JLabel();
         btnBorrar1 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnSesiones = new javax.swing.JButton();
         jTextFieldFechaProfesor = new javax.swing.JTextField();
         jTextFieldHoraProfesor = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -290,14 +289,12 @@ public final class VUsuario extends javax.swing.JFrame{
             }
         });
 
-        jButton5.setText("Sesiones");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnSesiones.setText("Sesiones");
+        btnSesiones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnSesionesActionPerformed(evt);
             }
         });
-
-        jButton6.setText("Alumnos");
 
         jTextFieldFechaProfesor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -353,9 +350,7 @@ public final class VUsuario extends javax.swing.JFrame{
                                         .addComponent(btnBorrar1))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton5))))
+                                        .addComponent(btnSesiones))))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSalir2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(41, Short.MAX_VALUE))
@@ -392,9 +387,7 @@ public final class VUsuario extends javax.swing.JFrame{
                         .addComponent(jTextFieldDescripcionProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton6)
-                            .addComponent(jButton5))))
+                        .addComponent(btnSesiones)))
                 .addGap(24, 24, 24)
                 .addComponent(btnSalir2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -733,11 +726,12 @@ public final class VUsuario extends javax.swing.JFrame{
         aulas.pack();
     }//GEN-LAST:event_btnAulasActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnSesionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSesionesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-
+        VSesionesProfesor sesiones = new VSesionesProfesor(fa);
+        sesiones.setVisible(true);
+        sesiones.pack();
+    }//GEN-LAST:event_btnSesionesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -757,11 +751,10 @@ public final class VUsuario extends javax.swing.JFrame{
     private java.awt.Button btnSalir;
     private java.awt.Button btnSalir1;
     private java.awt.Button btnSalir2;
+    private javax.swing.JButton btnSesiones;
     private javax.swing.JComboBox<String> comboSeleccionTipoUsuarioDesdeAdmin;
     private javax.swing.JComboBox<String> comboSeleccionTipoUsuarioDesdeProfesor;
     private javax.swing.JComboBox<String> comboSeleccionTipoUsuarioDesdeUsuario;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;

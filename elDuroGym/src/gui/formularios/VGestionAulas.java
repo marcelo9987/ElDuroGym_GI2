@@ -66,7 +66,6 @@ public class VGestionAulas extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnEquipamiento = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         btnBuscar = new javax.swing.JLabel();
         txtAforo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -99,8 +98,6 @@ public class VGestionAulas extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-
-        jButton2.setText("Disponibilidad");
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -141,9 +138,7 @@ public class VGestionAulas extends javax.swing.JFrame {
                         .addComponent(btnEditar)
                         .addGap(0, 16, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(btnEquipamiento))
+                .addComponent(btnEquipamiento)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -160,9 +155,7 @@ public class VGestionAulas extends javax.swing.JFrame {
                                 .addGap(45, 45, 45)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(87, 87, 87)
-                                .addComponent(jButton2)
-                                .addGap(25, 25, 25)
+                                .addGap(135, 135, 135)
                                 .addComponent(btnEquipamiento)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +212,6 @@ public class VGestionAulas extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEquipamiento;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

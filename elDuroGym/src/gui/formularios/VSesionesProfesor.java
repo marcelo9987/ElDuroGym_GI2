@@ -23,6 +23,19 @@
  */
 package gui.formularios;
 
+import aplicacion.Aula;
+import aplicacion.AutenticacionSingleton;
+import aplicacion.Grupo;
+import aplicacion.SesionProfesor;
+import gui.modelos.ModeloTablaSesionesProfesor;
+
+import javax.swing.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import static java.lang.Boolean.TRUE;
+
 /**
  *
  * @author alumnogreibd
@@ -32,7 +45,12 @@ public class VSesionesProfesor extends javax.swing.JFrame {
     /**
      * Creates new form VSesionesProfesor
      */
-    public VSesionesProfesor() {
+    
+    aplicacion.FachadaAplicacion fa;
+    
+  
+    public VSesionesProfesor(aplicacion.FachadaAplicacion fa) {
+        this.fa=fa;
         initComponents();
     }
 
@@ -58,7 +76,6 @@ public class VSesionesProfesor extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtFHfin = new javax.swing.JTextField();
         btnCrear = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -86,8 +103,11 @@ public class VSesionesProfesor extends javax.swing.JFrame {
         jLabel5.setText("Fecha_hora_fin:");
 
         btnCrear.setText("Crear");
-
-        btnEditar.setText("Editar");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearActionPerformed(evt);
+            }
+        });
 
         btnBorrar.setText("Borrar");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,6 +125,11 @@ public class VSesionesProfesor extends javax.swing.JFrame {
         });
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,36 +140,30 @@ public class VSesionesProfesor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(txtDescripcion))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel1)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtAula, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jLabel2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel5)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(btnCrear)
-                                        .addGap(114, 114, 114)
-                                        .addComponent(btnEditar)))
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(150, 150, 150)))
+                                .addGap(19, 19, 19)
+                                .addComponent(btnCrear)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel7))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtDescripcion))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtAula, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnBorrar)
@@ -177,17 +196,14 @@ public class VSesionesProfesor extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtFHfin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCrear)
-                    .addComponent(btnEditar)
-                    .addComponent(btnBorrar)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 2, Short.MAX_VALUE)
-                        .addComponent(jLabel7)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCrear)
+                        .addComponent(btnBorrar)
+                        .addComponent(jLabel6))
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -200,52 +216,30 @@ public class VSesionesProfesor extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
+        borrarSesionesDeProfesor();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VSesionesProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VSesionesProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VSesionesProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VSesionesProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+        consultarSesiones();
+    }//GEN-LAST:event_jLabel7MouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VSesionesProfesor().setVisible(true);
-            }
-        });
-    }
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        // TODO add your handling code here:
+        crearSesionParaProfesor();
+    }//GEN-LAST:event_btnCrearActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaSesionesProfesor;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCrear;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -261,4 +255,53 @@ public class VSesionesProfesor extends javax.swing.JFrame {
     private javax.swing.JTextField txtFHinicio;
     private javax.swing.JTextField txtGrupo;
     // End of variables declaration//GEN-END:variables
+
+    private void consultarSesiones() {
+        String nombre = txtAula.getText();
+        String descripcion = txtDescripcion.getText();
+        
+        String actividad = "";
+        
+        String nickname = AutenticacionSingleton.getInstance().getNickname();
+        ModeloTablaSesionesProfesor m = (ModeloTablaSesionesProfesor) TablaSesionesProfesor.getModel();
+        List <SesionProfesor> sesiones = fa.obtenerSesionesProfesorVentana(nickname, actividad, nombre,descripcion);
+        m.setFilas(sesiones);
+
+    }
+
+    public void crearSesionParaProfesor() {
+        Aula aula = fa.obtenerAulaPorNombre(txtAula.getText());
+
+        Grupo grupo = fa.obtenerGrupoPorId(Integer.parseInt(txtGrupo.getText()));
+
+        // Definir el formateador para el formato esperado
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // Parsear el String a LocalDateTime utilizando el formateador
+        LocalDateTime fechaHoraInicio = LocalDateTime.parse(txtFHinicio.getText(), formatter);
+        LocalDateTime fechaHoraFin = LocalDateTime.parse(txtFHfin.getText(), formatter);
+
+
+        if (fa.haySesionesEnAula(aula.getIdAula(),fechaHoraInicio, fechaHoraFin)){
+            JOptionPane.showMessageDialog(this, "No se ha podido crear la sesion con exito, hay sesiones en esa aula en el momento", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        boolean comp = fa.crearSesionParaProfesor(aula.getIdAula(),grupo.getIdGrupo(),fechaHoraInicio, fechaHoraFin, txtDescripcion.getText());
+        if (comp) {
+            JOptionPane.showMessageDialog(this, "Se ha creado la sesión con éxito", "Sesion creada", JOptionPane.INFORMATION_MESSAGE);
+            int idProfesor = fa.obtenerIdProfesorPorNombre(AutenticacionSingleton.getInstance().getNickname());
+            fa.insertarGrupoTieneProfesor(grupo.getIdGrupo(), idProfesor);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha podido crear la sesion con exito", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void borrarSesionesDeProfesor(){
+        int idProfesor = fa.obtenerIdProfesorPorNombre(AutenticacionSingleton.getInstance().getNickname());
+
+        fa.borrarSesionesDeProfesor(idProfesor, Integer.parseInt(txtGrupo.getText()));
+    }
+
+
 }
