@@ -408,4 +408,42 @@ public class DAOSesion extends AbstractDAO {
         return exito;
     }
 
+    public boolean grupoTieneSesiones(Grupo grupo) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean tieneSesiones = false;
+
+        try {
+            con = this.getConexion();
+
+            // Consulta SQL para verificar si un grupo tiene sesiones
+            String consulta = "SELECT COUNT(*) AS count FROM Sesion WHERE id_grupo = ?";
+            pstmt = con.prepareStatement(consulta);
+            pstmt.setInt(1, grupo.getIdGrupo());
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                // Si el resultado es mayor que 0, significa que el grupo tiene sesiones
+                tieneSesiones = rs.getInt("count") > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            // Manejo de excepciones
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return tieneSesiones;
+    }
 }

@@ -29,7 +29,7 @@ import gui.modelos.ModeloTablaCliente;
  *
  * @author david
  */
-public class VGestionClientes extends javax.swing.JFrame {
+public final class VGestionClientes extends javax.swing.JFrame {
 
     /**
      * Creates new form vGestionClientes

@@ -1,6 +1,7 @@
 package basedatos;
 
 import aplicacion.*;
+import aplicacion.FachadaAplicacion;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author basesdatos
  */
 public final class DAOProfesor extends AbstractDAO {
-    public DAOProfesor(Connection conexion, aplicacion.FachadaAplicacion fa) {
+    public DAOProfesor(Connection conexion, FachadaAplicacion fa) {
         super.setConexion(conexion);
         super.setFachadaAplicacion(fa);
     }
@@ -45,13 +46,13 @@ public final class DAOProfesor extends AbstractDAO {
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    System.out.println("Imposible cerrar conexión");
-                }
-            }
+//            if (con != null) {
+//                try {
+//                    con.close();
+//                } catch (SQLException e) {
+//                    System.out.println("Imposible cerrar conexión");
+//                }
+//            }
         }
         return gruposResultado;
     }
@@ -149,13 +150,13 @@ public final class DAOProfesor extends AbstractDAO {
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    System.out.println("Imposible cerrar conexión");
-                }
-            }
+//            if (con != null) {
+//                try {
+//                    con.close();
+//                } catch (SQLException e) {
+//                    System.out.println("Imposible cerrar conexión");
+//                }
+//            }
         }
         return resultado;
     }
@@ -197,7 +198,7 @@ public final class DAOProfesor extends AbstractDAO {
             }
             if (!hora.isEmpty()) {
                 consulta //+= "AND TO_CHAR(EXTRACT(HOUR FROM S.Fecha_hora_inicio), 'FM00') || ':' || TO_CHAR(EXTRACT(MINUTE FROM S.Fecha_hora_inicio), 'FM00') = ? ";
-                += "AND ? between S.fecha_hora_inicio::time and S.fecha_hora_fin::time";
+                        += "AND ? between S.fecha_hora_inicio::time and S.fecha_hora_fin::time";
             }
             if (!descripcion.isEmpty()) {
                 consulta += "AND AC.descripcion = ? ";
@@ -221,10 +222,10 @@ public final class DAOProfesor extends AbstractDAO {
             }
             if (!hora.isEmpty()) {
                 //ver si hay dos : en la hora
-                if(hora.split(":").length < 3) {
+                if (hora.split(":").length < 3) {
                     hora += ":00";
                 }
-                    stmSesionesProfesor.setTime(index++,Time.valueOf(hora));
+                stmSesionesProfesor.setTime(index++, Time.valueOf(hora));
             }
             if (!descripcion.isEmpty()) {
                 stmSesionesProfesor.setString(index++, descripcion);
@@ -300,4 +301,108 @@ public final class DAOProfesor extends AbstractDAO {
         return idProfesor;
     }
 
+    public List obtenerProfesores() {
+        Connection con = null;
+
+        ResultSet rsProfesores = null;
+
+        List<Profesor> profesores = new ArrayList<>();
+//        Statement stmProfesores = null;
+        PreparedStatement stmProfesores = null;
+        try {
+            con = this.getConexion();
+//            stmProfesores = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+//            rsProfesores = stmProfesores.executeQuery("SELECT * FROM Profesor left join Persona on Profesor.id_profesor = Persona.id_persona");
+            String consulta = "SELECT * FROM Profesor left join Persona on Profesor.id_profesor = Persona.id_persona ORDER BY Persona.nombre, Persona.id_persona";
+            stmProfesores = con.prepareStatement(consulta);
+            rsProfesores = stmProfesores.executeQuery();
+            while (rsProfesores.next()) {
+
+
+                Profesor profesor = new Profesor(
+                        Integer.toString(rsProfesores.getInt("id_profesor"))
+                        , rsProfesores.getString("contrasenha")
+                        , rsProfesores.getString("nombre")
+                        , rsProfesores.getString("domicilio")
+                        , rsProfesores.getString("correo")
+                        , rsProfesores.getString("dni")
+                        , rsProfesores.getString("nickname")
+
+                );
+                profesores.add(profesor);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (stmProfesores != null) {
+                    stmProfesores.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+//            try {
+//                if (con != null) {
+//                    con.close();
+//                }
+//            } catch (SQLException e) {
+//                System.out.println("Imposible cerrar conexión");
+//            }
+        }
+        return profesores;
+    }
+
+    public Profesor obtenerProfesorGrupo(int idGrupo) {
+        Connection con = null;
+        PreparedStatement stmProfesor = null;
+        ResultSet rsProfesor = null;
+        Profesor profesor = null;
+        try {
+            con = this.getConexion();
+            stmProfesor = con.prepareStatement
+                    (
+                            "SELECT * " +
+                                    "FROM " +
+                                    "   Profesor LEFT JOIN persona " +
+                                    "       ON Profesor.id_profesor = persona.id_persona" +
+                                    " WHERE " +
+                                    "   id_profesor = (" +
+                                    "                       SELECT " +
+                                    "                           id_profesor " +
+                                    "                       FROM " +
+                                    "                           grupo_tiene_profesor " +
+                                    "                       WHERE " +
+                                    "                           id_grupo = ?" +
+                                    "                 )");
+            stmProfesor.setInt(1, idGrupo);
+            rsProfesor = stmProfesor.executeQuery();
+            if (rsProfesor.next()) {
+                profesor = new Profesor(
+                        Integer.toString(rsProfesor.getInt("id_profesor"))
+                        , rsProfesor.getString("contrasenha")
+                        , rsProfesor.getString("nombre")
+                        , rsProfesor.getString("domicilio")
+                        , rsProfesor.getString("correo")
+                        , rsProfesor.getString("dni")
+                        , rsProfesor.getString("nickname")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (rsProfesor != null) {
+                    rsProfesor.close();
+                }
+                if (stmProfesor != null) {
+                    stmProfesor.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return profesor;
+    }
 }

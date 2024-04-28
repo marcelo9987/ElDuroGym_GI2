@@ -29,7 +29,7 @@ import aplicacion.FachadaAplicacion;
  *
  * @author imarc
  */
-public class VCreacionActividad extends javax.swing.JFrame {
+public final class VCreacionActividad extends javax.swing.JFrame {
 
     FachadaAplicacion fa;
     /**
@@ -64,7 +64,7 @@ public class VCreacionActividad extends javax.swing.JFrame {
         btnGuardarNuevaCategoria = new javax.swing.JButton();
         checknombreValido = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Asistente de Creación de Categorías");
         setAlwaysOnTop(true);
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.TOOLKIT_EXCLUDE);

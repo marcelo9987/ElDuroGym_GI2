@@ -24,7 +24,7 @@ public final class VAutentificacion extends javax.swing.JDialog {
     FachadaGui fgui;
     
     /** Creates new form VAutentificacion */
-    public VAutentificacion(java.awt.Frame parent, boolean modal, aplicacion.FachadaAplicacion fa,FachadaGui fgui){
+    public VAutentificacion(java.awt.Frame parent, boolean modal, FachadaAplicacion fa, FachadaGui fgui){
         super(parent, modal);
         this.fa=fa;
         this.fgui= fgui;

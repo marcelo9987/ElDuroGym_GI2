@@ -5,8 +5,7 @@ package aplicacion;
 /**
  * Clase que representa un usuario del sistema
  */
-public abstract class Usuario
-{
+public abstract class Usuario {
     private final String idUsuario;
     private final String nombre;
     private final String dni;
@@ -16,7 +15,7 @@ public abstract class Usuario
     private final String clave;
 
 
-public Usuario(String idUsuario, String clave, String nombre, String direccion, String email, String dni, String nickname){
+    public Usuario(String idUsuario, String clave, String nombre, String direccion, String email, String dni, String nickname) {
         this.idUsuario = idUsuario;
         this.clave = clave;
         this.nombre = nombre;
@@ -52,6 +51,27 @@ public Usuario(String idUsuario, String clave, String nombre, String direccion, 
 
     public String getNickname() {
         return nickname;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        // --
+
+        final Usuario other = (Usuario) obj;
+
+        if ((this.idUsuario == null) || (!this.idUsuario.equals(other.idUsuario))) {
+            return false;
+        }
+
+        return true;
+
     }
 
 }

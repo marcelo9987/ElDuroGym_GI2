@@ -33,7 +33,7 @@ import java.util.List;
  *
  * @author imarc
  */
-public class VGesActividades extends javax.swing.JFrame {
+public final class VGesActividades extends javax.swing.JFrame {
 
     FachadaAplicacion fa;
 

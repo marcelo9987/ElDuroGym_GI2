@@ -3,11 +3,14 @@ package gui.modelos;
 
 import aplicacion.Actividad;
 
-public class ModeloListaActividades extends javax.swing.AbstractListModel{
+import java.util.ArrayList;
+import java.util.List;
+
+public class ModeloListaActividades extends javax.swing.AbstractListModel<String>{
     private final java.util.List<Actividad> actividades;
 
     public ModeloListaActividades() {
-        this.actividades = new java.util.ArrayList<>();
+        this.actividades = new ArrayList<>();
     }
 
     @Override
@@ -27,7 +30,7 @@ public class ModeloListaActividades extends javax.swing.AbstractListModel{
 
 
 
-    public void setFilas(java.util.List<Actividad> actividades) {
+    public void setFilas(List<Actividad> actividades) {
         this.actividades.clear();
         this.actividades.addAll(actividades);
         fireContentsChanged(this, 0, actividades.size() - 1);

@@ -4,10 +4,7 @@
  */
 package gui.formularios;
 
-import aplicacion.AutenticacionSingleton;
-import aplicacion.SesionCliente;
-import aplicacion.SesionProfesor;
-import aplicacion.TipoUsuario;
+import aplicacion.*;
 import gui.modelos.ModeloTablaSesionesClientes;
 import gui.modelos.ModeloTablaSesionesProfesor;
 import gui.auxiliares.posicionamientoVentanas;
@@ -26,9 +23,9 @@ public final class VUsuario extends javax.swing.JFrame{
     /**
      * Creates new form VProfesor
      */
-    aplicacion.FachadaAplicacion fa;
+    FachadaAplicacion fa;
     
-    public VUsuario(aplicacion.FachadaAplicacion fa) {
+    public VUsuario(FachadaAplicacion fa) {
         this.fa=fa;
         initComponents();
         posicionamientoVentanas.centrarVentana(this);
@@ -137,7 +134,7 @@ public final class VUsuario extends javax.swing.JFrame{
         btnGrupos.setText("Gestion de grupos");
         btnGrupos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGruposActionPerformed(evt);
+                    btnGruposActionPerformed(evt);
             }
         });
 
@@ -702,7 +699,9 @@ public final class VUsuario extends javax.swing.JFrame{
     }//GEN-LAST:event_txtHoraActionPerformed
 
     private void btnGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGruposActionPerformed
-        // TODO add your handling code here:
+        VGesGrupos vg = new VGesGrupos(fa);
+        vg.setVisible(true);
+        vg.pack();
     }//GEN-LAST:event_btnGruposActionPerformed
 
     private void jTextFieldFechaProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFechaProfesorActionPerformed

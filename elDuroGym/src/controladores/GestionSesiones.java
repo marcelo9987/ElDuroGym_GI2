@@ -45,4 +45,8 @@ public class GestionSesiones {
     public boolean borrarSesionesDeProfesor(int idProfesor, int idGrupo) {
         return fbd.borrarSesionesDeProfesor(idProfesor, idGrupo);
     }
+
+    public boolean grupoTieneSesiones(Grupo grupo) {
+        return fbd.grupoTieneSesiones(grupo);
+    }
 }

@@ -4,6 +4,7 @@
  */
 package basedatos;
 import aplicacion.*;
+import aplicacion.FachadaAplicacion;
 import aplicacion.TipoUsuario;
 import misc.Criptografia;
 
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public final class DAOUsuarios extends AbstractDAO {
 
-    public DAOUsuarios(Connection conexion, aplicacion.FachadaAplicacion fa) {
+    public DAOUsuarios(Connection conexion, FachadaAplicacion fa) {
         super.setConexion(conexion);
         super.setFachadaAplicacion(fa);
     }

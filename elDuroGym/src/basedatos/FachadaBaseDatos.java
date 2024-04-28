@@ -14,16 +14,16 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- *
  * @author alumnogreibd
  */
 public class FachadaBaseDatos {
-    private final FachadaAplicacion fa;
+//    private final FachadaAplicacion fa;
     private java.sql.Connection conexion;
     private DAOUsuarios daoUsuarios;
     private DAOClientes daoClientes;
     private DAOProfesor daoProfesor;
     private DAOActividades daoActividades;
+    private DAOGrupos daoGrupos;
     private DAOAulas daoAulas;
     private DAOEquipamiento daoEquipamiento;
     private DAOSesion daoSesion;
@@ -31,13 +31,14 @@ public class FachadaBaseDatos {
     public FachadaBaseDatos(FachadaAplicacion fa) {
 
         Properties configuracion = new Properties();
-        this.fa = fa;
-        FileInputStream arqConfiguracion;
+//        this.fa = fa;
 
-        try {
-            arqConfiguracion = new FileInputStream("baseDatos.properties");
+
+        try (
+                FileInputStream arqConfiguracion = new FileInputStream("baseDatos.properties")
+        ) {
             configuracion.load(arqConfiguracion);
-            arqConfiguracion.close();
+//            arqConfiguracion.close();
 
             Properties usuario = new Properties();
 
@@ -59,6 +60,8 @@ public class FachadaBaseDatos {
             this.daoProfesor = new DAOProfesor(conexion, fa);
 
             this.daoActividades = new DAOActividades(conexion, fa);
+
+            this.daoGrupos = new DAOGrupos(conexion, fa);
 
             this.daoAulas = new DAOAulas(conexion, fa);
 
@@ -84,7 +87,7 @@ public class FachadaBaseDatos {
         return daoUsuarios.validarUsuario(idUsuario, clave);
     }
 
-    public java.util.List<Usuario> consultarUsuarios(String id, String nombre) {
+    public List<Usuario> consultarUsuarios(String id, String nombre) {
         return daoUsuarios.consultarUsuarios(id, nombre);
     }
 
@@ -113,7 +116,7 @@ public class FachadaBaseDatos {
         daoActividades.eliminarActividad(actividad);
     }
 
-    public boolean ActividadTieneGrupos(Actividad actividad) {
+    public boolean actividadTieneGrupos(Actividad actividad) {
         return daoActividades.actividadTieneGrupos(actividad);
     }
 
@@ -137,6 +140,51 @@ public class FachadaBaseDatos {
         return daoEquipamiento.obtenerEquipamientosPorAula(nombreAula, descripcionEquipamiento);
     }
 
+    // INI GRUPOS
+
+    public List<Grupo> obtenerGrupos() {
+        return daoGrupos.obtenerGrupos();
+    }
+
+    public List<Profesor> obtenerProfesores() {
+        return daoProfesor.obtenerProfesores();
+    }
+
+    public List<Cliente> obtenerClientes() {
+        return daoClientes.obtenerClientes();
+    }
+
+    public List<Cliente> obtenerClientesGrupo(Grupo grupo) {
+        return daoClientes.obtenerClientesGrupo(grupo);
+    }
+
+    public Profesor obtenerProfesorGrupo(int idGrupo) {
+        return daoProfesor.obtenerProfesorGrupo(idGrupo);
+    }
+
+    public void modificarGrupo(Grupo grupo, Actividad actividad, Profesor profesor) {
+        daoGrupos.modificarGrupo(grupo, actividad);
+        daoGrupos.cambiarProfesorGrupo(grupo, profesor);
+    }
+
+    public void borrarClientesGrupo(Grupo grupo) {
+        daoClientes.borrarClientesGrupo(grupo);
+    }
+
+//    public void borrarClientesGrupo(Grupo grupo, ArrayList<Cliente> arrayListAlumnosEliminar) {
+//        daoClientes.borrarClientesGrupo(grupo, arrayListAlumnosEliminar);
+//    }
+
+    public void setAlumnoGrupo(Grupo grupo, Cliente c) {
+        daoClientes.setAlumnoGrupo(grupo, c);
+    }
+
+    public boolean alumnoTieneGrupo(Cliente c, Grupo g) {
+        return daoClientes.alumnoTieneGrupo(c, g);
+    }
+    // FIN GRUPOS
+
+    // INI SESIONES
 
     public Grupo obtenerGrupoPorId(int idGrupo) {
         return daoSesion.obtenerGrupoPorId(idGrupo);
@@ -154,7 +202,7 @@ public class FachadaBaseDatos {
         return daoSesion.crearSesionParaProfesor(idAula, idGrupo, fechaHoraInicio, fechaHoraFin, descripcion);
     }
 
-    public Aula obtenerAulaPorNombre(String nombre){
+    public Aula obtenerAulaPorNombre(String nombre) {
         return daoSesion.obtenerAulaPorNombre(nombre);
     }
 
@@ -170,5 +218,18 @@ public class FachadaBaseDatos {
         return daoSesion.borrarSesionesDeProfesor(idProfesor, idGrupo);
     }
 
+    public Integer crearGrupo(int id_actividad) {
+        return daoGrupos.crearGrupo(id_actividad);
+    }
+
+    public void borrarGrupo(Grupo grupo) {
+        daoGrupos.borrarGrupo(grupo);
+    }
+
+    public boolean grupoTieneSesiones(Grupo grupo) {
+        return daoSesion.grupoTieneSesiones(grupo);
+    }
+
+    // FIN SESIONES
 
 }
