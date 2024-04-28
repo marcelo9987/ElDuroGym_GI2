@@ -4,11 +4,9 @@
  */
 package aplicacion;
 
-import controladores.GestionActividades;
-import controladores.GestionAulas;
-import controladores.GestionEquipamiento;
-import controladores.GestionUsuarios;
+import controladores.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -24,6 +22,7 @@ public class FachadaAplicacion {
     GestionActividades ca;
     GestionAulas ga;
     GestionEquipamiento ge;
+    GestionSesiones gs;
     public FachadaAplicacion() {
         fgui = new gui.FachadaGui(this);
         fbd = new basedatos.FachadaBaseDatos(this);
@@ -31,6 +30,7 @@ public class FachadaAplicacion {
         ca = new GestionActividades(fbd);
         ga = new GestionAulas(fbd);
         ge = new GestionEquipamiento(fbd);
+        gs = new GestionSesiones(fbd);
     }
 
     /**
@@ -114,5 +114,29 @@ public class FachadaAplicacion {
 
     public List<Equipamiento> obtenerEquipamientosPorAula(String nombreAula, String descripcionEquipamiento){
         return ge.obtenerEquipamientosPorAula(nombreAula, descripcionEquipamiento);
+    }
+
+    public Aula obtenerAulaPorNombre(String nombre) {
+        return gs.obtenerAulaPorNombre(nombre);
+    }
+
+    public Actividad obtenerActividadPorId(int idActividad) {
+        return gs.obtenerActividadPorId(idActividad);
+    }
+
+    public Grupo obtenerGrupoPorId(int idGrupo) {
+        return gs.obtenerGrupoPorId(idGrupo);
+    }
+
+    public int obtenerSiguienteIdReserva() {
+        return gs.obtenerSiguienteIdReserva();
+    }
+
+    public boolean haySesionesEnAula(int idAula, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
+        return gs.haySesionesEnAula(idAula, fechaHoraInicio, fechaHoraFin);
+    }
+
+    public boolean idGrupoRelacionadoConProfesor(int idGrupo, int idProfesor) {
+        return gs.idGrupoRelacionadoConProfesor(idGrupo, idProfesor);
     }
 }

@@ -9,6 +9,7 @@ import aplicacion.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,6 +26,7 @@ public class FachadaBaseDatos {
     private DAOActividades daoActividades;
     private DAOAulas daoAulas;
     private DAOEquipamiento daoEquipamiento;
+    private DAOSesion daoSesion;
 
     public FachadaBaseDatos (FachadaAplicacion fa){
         
@@ -62,6 +64,8 @@ public class FachadaBaseDatos {
 
         this.daoEquipamiento = new DAOEquipamiento(conexion,fa);
 
+        this.daoSesion = new DAOSesion(conexion,fa);
+
         } catch (FileNotFoundException f){
             System.out.println(f.getMessage());
             fa.muestraExcepcion(f.getMessage());
@@ -80,11 +84,6 @@ public class FachadaBaseDatos {
     public Usuario validarUsuario(String idUsuario, String clave){
         return daoUsuarios.validarUsuario(idUsuario, clave);
     }
-    
-    
-    
-    
-    
     
     public java.util.List<Usuario> consultarUsuarios(String id, String nombre){
         return daoUsuarios.consultarUsuarios(id,nombre);
@@ -142,5 +141,27 @@ public class FachadaBaseDatos {
         return daoEquipamiento.obtenerEquipamientosPorAula(nombreAula, descripcionEquipamiento);
     }
 
+    public Aula obtenerAulaPorNombre(String nombre) {
+        return daoSesion.obtenerAulaPorNombre(nombre);
+    }
+
+    public Actividad obtenerActividadPorId(int idActividad) {
+        return daoSesion.obtenerActividadPorId(idActividad);
+    }
+
+    public Grupo obtenerGrupoPorId(int idGrupo) {
+        return daoSesion.obtenerGrupoPorId(idGrupo);
+    }
+
+    public int obtenerSiguienteIdReserva() {
+        return daoSesion.obtenerSiguienteIdReserva();
+    }
+
+    public boolean haySesionesEnAula(int idAula, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
+        return daoSesion.haySesionesEnAula(idAula, fechaHoraInicio, fechaHoraFin);
+    }
+        public boolean idGrupoRelacionadoConProfesor(int idGrupo, int idProfesor) {
+        return daoSesion.idGrupoRelacionadoConProfesor(idGrupo, idProfesor);
+    }
 
 }
